@@ -1,10 +1,9 @@
-
 BootStrap:docker
-From:ubuntu:16.04
+From:ubuntu:18.04
 
 %labels
-AUTHOR ayush raj
-
+AUTHOR Peter Uhrig
+BASED_ON https://github.com/rianders/docker-openpose/blob/master/Dockerfile
 
 %environment
         export LANGUAGE=en_US.UTF-8
@@ -12,13 +11,11 @@ AUTHOR ayush raj
         export LC_ALL=en_US.UTF-8
 
 %post
-
 apt-get update && apt-get install -y --no-install-recommends software-properties-common wget
 add-apt-repository universe
-
 apt-get update && apt-get install -y --no-install-recommends \
   ca-certificates curl git nano less \
-  build-essential cmake pkg-config libopencv-dev caffe-cpu libgoogle-glog-dev libcaffe-cpu-dev \
+  build-essential cmake pkg-config libopencv-dev libgoogle-glog-dev \
   libboost-dev libprotobuf-dev gpg-agent locales language-pack-en
 locale-gen en_US.UTF-8 && dpkg-reconfigure locales
 wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2019.PUB
@@ -44,11 +41,6 @@ export MKLVARS_ARCHITECTURE=intel64
 # Apparently not all shells allow parameters with source.
 #. /opt/intel/mkl/bin/mklvars.sh intel64
 
-cmake -DGPU_MODE=CPU_ONLY -DBUILD_CAFFE=OFF -DCaffe_INCLUDE_DIRS=/usr/include/caffe/ -DCaffe_LIBS=/usr/lib/x86_64-linux-gnu/libcaffe.so ..
+cmake -DGPU_MODE=CPU_ONLY ..
 make
 make install
-
-
-%runscript
-
-python3 pose.py
