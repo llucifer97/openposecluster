@@ -15,8 +15,7 @@ AUTHOR ayush raj
 
 apt-get update && apt-get install -y --no-install-recommends software-properties-common wget
 add-apt-repository universe
-apt install -y python3-pip
-apt install -y git-all 
+
 apt-get update && apt-get install -y --no-install-recommends \
   ca-certificates curl git nano less \
   build-essential cmake pkg-config libopencv-dev caffe-cpu libgoogle-glog-dev libcaffe-cpu-dev \
