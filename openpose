@@ -44,3 +44,11 @@ export MKLVARS_ARCHITECTURE=intel64
 cmake -DGPU_MODE=CPU_ONLY -DBUILD_CAFFE=OFF -DCaffe_INCLUDE_DIRS=/usr/include/caffe/ -DCaffe_LIBS=/usr/lib/x86_64-linux-gnu/libcaffe.so ..
 make
 make install
+apt update	
+         apt install -y python3-pip
+         apt install -y git-all            
+git clone https://github.com/llucifer97/openposecluster.git
+cd openposecluster
+
+%runscript
+python3 pose.py
