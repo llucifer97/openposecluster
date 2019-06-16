@@ -26,7 +26,16 @@ apt-get update && apt-get install -y --no-install-recommends intel-mkl-64bit-201
 # option caffe-cuda
 # http://caffe.berkeleyvision.org/install_apt.html
 # In case we need to turn off ssl verify
-# RUN  git config --global http.sslVerify false
+# RUN
+apt install -y python3-pip
+apt install -y git-all 
+apt update	
+
+  git config --global http.sslVerify false
+         
+# Installing some Python packages that are needed for pre-processing
+  apt install -y python3 python3-matplotlib python3-numpy
+  pip3 install pillow numpy opencv-python image sklearn statistics beautifulsoup4 ipaddress ipykernel ipython ipython-genutils ipywidgets jsonschema jupyter jupyter-client jupyter-console jupyter-core natsort notebook bqplot pandas scikit-image scikit-learn seaborn plotly requests appmode 
 
 mkdir /localdata
 cd /localdata
@@ -45,10 +54,9 @@ cmake -DGPU_MODE=CPU_ONLY -DBUILD_CAFFE=OFF -DCaffe_INCLUDE_DIRS=/usr/include/ca
 make
 make install
 apt update	
-         apt install -y python3-pip
-         apt install -y git-all            
+         
+%runscript
 git clone https://github.com/llucifer97/openposecluster.git
 cd openposecluster
 
-%runscript
 python3 pose.py
